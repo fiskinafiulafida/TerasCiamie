@@ -29,4 +29,4 @@ Route::get('/register', [RegisterController::class, 'index']);
 Route::post('/register', [RegisterController::class, 'store']);
 
 // Halaman Admin
-Route::get('/dashboard', [AdminController::class, 'index']);
+Route::post('/dashboard', [AdminController::class, 'index']);
