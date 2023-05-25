@@ -20,9 +20,11 @@ class RegisterController extends Controller
             'password' => 'required|min:3|max:255'
         ]);
 
+        $validatedData['password'] = bcrypt($validatedData['password']);
+
         User::create($validatedData);
         // untuk mengerahui registrasi berhasil 
         $request->session()->flash('Success', 'Registrasi Anda Berhasil');
-        return redirect('/login');
+        return redirect('/');
     }
 }
