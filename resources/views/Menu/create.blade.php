@@ -1,6 +1,6 @@
 @extends('layouts/mainAdmin')
 
-@section('title', 'Dashboard')
+@section('title', 'Create Data Menu')
 
 @section('sidebar')
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -67,7 +67,7 @@
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="/" data-toggle="modal" data-target="#logoutModal">
+                <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                     Logout
                 </a>
@@ -77,8 +77,63 @@
 </nav>
 @endsection
 
-@section('pageHeading')
-<h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+@section('header')
+<h6 class="m-0 font-weight-bold text-primary">Create Data Menu</h6>
+@endsection
+
+@section('body')
+<div>
+    <form action="{{ route('menu.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="card-body">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Nama Menu</label>
+                <input type="nama_menu" class="form-control @error('nama_menu') is-invalid @enderror" name="nama_menu" id="nama_menu" placeholder="Mie Anggel">
+                <!-- error message untuk Nama Menu -->
+                @error('nama_menu')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Harga</label>
+                <input type="harga" class="form-control @error('harga') is-invalid @enderror" name="harga" id="harga" placeholder="2000"><!-- error message untuk harga -->
+                @error('harga')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
+            <div class="form-floating mb-3">
+                <label for="floatingTextareaDisabled" class="form-label">Deskripsi</label>
+                <textarea class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi" id="deskripsi" placeholder="Deskripsi"></textarea>
+                <!-- error message untuk deskripsi -->
+                @error('deskripsi')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight">Gambar</label>
+                <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" id="image">
+
+                <!-- error message untuk gambar -->
+                @error('image')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
 @endsection
 
 @section('footer')

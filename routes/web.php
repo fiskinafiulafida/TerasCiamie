@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PengunjungController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,14 +18,12 @@ use App\Http\Controllers\HomeController;
 |
 */
 // Masuk kehalaman utama pengunjung
-// Route::get('/', function () {
-//     return view('index');
-// });
-
+Route::get('/', [PengunjungController::class, 'index'])->middleware('guest');
 // // Halaman Login
 // Route::get('/login', [LoginController::class, 'index']);
 // Route::post('/login', [LoginController::class, 'authenticate']);
-Route::get('/', [LoginController::class, 'index'])->name('login')->middleware('guest');
+// Route::get('/', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'cekStatusLogin'])->middleware('guest');
 Route::get('/logout', [LoginController::class, 'logout'])->middleware('auth');
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
@@ -32,5 +32,5 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
 
-// Halaman Admin
-// Route::post('/dashboard', [AdminController::class, 'index']);
+// Halaman Menu
+Route::resource('/menu', MenuController::class)->middleware('auth');

@@ -1,6 +1,6 @@
 @extends('layouts/mainAdmin')
 
-@section('title', 'Dashboard')
+@section('title', 'Edit Menu')
 
 @section('sidebar')
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -77,8 +77,41 @@
 </nav>
 @endsection
 
-@section('pageHeading')
-<h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+@section('header')
+<h6 class="m-0 font-weight-bold text-primary">Edit Data Menu</h6>
+@endsection
+
+@section('body')
+<div>
+    <form method="POST" enctype="multipart/form-data" action="{{ route('menu.update',$menu->id_menu) }}">
+        @csrf
+        @method('PUT')
+        <div class="card-body">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Nama Menu</label>
+                <input type="nama_menu" class="form-control" name="nama_menu" id="nama_menu" value="{{ old( 'nama_menu', $menu->nama_menu) }}" required autofocus>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Harga</label>
+                <input type="harga" class="form-control" name="harga" id="harga" value="{{ old( 'harga', $menu->harga) }}" required autofocus>
+            </div>
+
+            <div class="form-floating mb-3">
+                <label for="floatingTextareaDisabled" class="form-label">Deskripsi</label>
+                <input type="deskripsi" class="form-control" name="deskripsi" id="deskripsi" value="{{ old( 'deskripsi', $menu->deskripsi) }}" required autofocus></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Gambar</label>
+                <input type="file" class="form-control" id="menu" name="image" value="{{ old( 'image', $menu->image) }}" required autofocus>
+                <img src="{{ asset('storage/'.$menu->image) }}" height="150px" width="150px">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
 @endsection
 
 @section('footer')

@@ -1,6 +1,6 @@
 @extends('layouts/mainAdmin')
 
-@section('title', 'Dashboard')
+@section('title', 'Menu')
 
 @section('sidebar')
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -77,8 +77,69 @@
 </nav>
 @endsection
 
-@section('pageHeading')
-<h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+@section('page_heading')
+<h1 class="h3 mb-2 text-gray-800">Data Menu Teras Ciamie</h1>
+@endsection
+
+@section('header')
+<h6 class="m-0 font-weight-bold text-primary">Dashboard Data Menu</h6>
+@endsection
+
+@section('body')
+<div>
+    <a href="{{ route('menu.create') }}" class="btn btn-info btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fas fa-info-circle"></i>
+        </span>
+        <span class="text">Create Data</span>
+    </a>
+</div>
+
+</br>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">DataTables Menu</h6>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Menu</th>
+                        <th>Harga</th>
+                        <th>Deskripsi</th>
+                        <th>Gambar</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($menu as $menu)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $menu->nama_menu }}</td>
+                        <td>{{ $menu->harga }}</td>
+                        <td>{{ $menu->deskripsi }}</td>
+                        <td><img src="{{asset('storage/'.$menu->image)}}" style='width:80px; height:50px;'></td>
+                        <td class="text-center">
+                            <form action="{{ route('menu.destroy',$menu->id_menu) }}" method="POST">
+                                <a class="btn btn-warning btn-circle" href="{{ route('menu.edit',$menu->id_menu) }}"><i class="fas fa-exclamation-triangle"></i></a>
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-circle" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </td>
+                        @empty
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('footer')
