@@ -6,6 +6,9 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PengunjungController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AboutAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +37,10 @@ Route::post('/register', [RegisterController::class, 'store'])->middleware('gues
 
 // Halaman Menu
 Route::resource('/menu', MenuController::class)->middleware('auth');
+
+// Halaman About
+Route::resource('/about', AboutController::class);
+Route::resource('/aboutAdmin', AboutAdminController::class)->middleware('auth');
+
+// Halaman Product
+Route::resource('/products', ProductController::class);
